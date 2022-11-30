@@ -22,20 +22,36 @@ public:
         this->year = year;
     }
 
-    // TODO: implement the following methods
     Date operator+(Date date) {
-        int day = this->day + (date.day - this->day);
-        int month = this->month + (date.month - this->month);
-        int year = this->year + (date.year - this->year);
-        return {day, month, year};
+        Date result;
+        result.day = day + date.day;
+        result.month = month + date.month;
+        result.year = year + date.year;
+        while (result.day > days[result.month]) {
+            result.day -= days[result.month];
+            result.month++;
+            while (result.month > 12) {
+                result.month -= 12;
+                result.year++;
+            }
+        }
+        return result;
     }
 
-    // TODO: implement the following methods
     Date operator-(Date date) {
-        int day = this->day - (date.day - this->day);
-        int month = this->month - (date.month - this->month);
-        int year = this->year - (date.year - this->year);
-        return {day, month, year};
+        Date result;
+        result.day = this->day - date.day;
+        result.month = this->month - date.month;
+        result.year = this->year - date.year;
+        while (result.month < 1) {
+            result.month += 12;
+            result.year--;
+        }
+        while (result.day < 0) {
+            result.day += days[result.month];
+            result.month--;
+        }
+        return result;
     }
 
     Date operator+(int days) {
@@ -128,15 +144,17 @@ public:
     }
 };
 
+// finding the perimetr of a triangle in a 2D plane by coordinates of its vertices
+double perimetr(double x1, double y1, double x2, double y2, double x3, double y3) {
+    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)) + sqrt(pow(x3 - x2, 2) + pow(y3 - y2, 2)) +
+           sqrt(pow(x3 - x1, 2) + pow(y3 - y1, 2));
+}
 
-// finding the perimeter of a triangle by the coordinates of its vertices
-void trianglePerimetr() {
-    int x1, y1, x2, y2, x3, y3;
-    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
-    int a = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-    int b = sqrt(pow(x3 - x2, 2) + pow(y3 - y2, 2));
-    int c = sqrt(pow(x3 - x1, 2) + pow(y3 - y1, 2));
-    cout << a + b + c;
+// finding the area of a triangle in a 3D plane by coordinates of its vertices
+double perimetr(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3) {
+    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2) + pow(z2 - z1, 2)) +
+           sqrt(pow(x3 - x2, 2) + pow(y3 - y2, 2) + pow(z3 - z2, 2)) +
+           sqrt(pow(x3 - x1, 2) + pow(y3 - y1, 2) + pow(z3 - z1, 2));
 }
 
 int myfunc(int i); // Эти функции различаются типами параметров
@@ -148,8 +166,11 @@ int main() {
 //    cout << myfunc(1.0) << endl; // Вызов функции с типом double
 //    trianglePerimetr();
 
+    cout << perimetr(0, 0, 0, 1, 1, 0) << endl;
+    cout << perimetr(1, 1, 1, 2, 2, 2, 3, 3, 3) << endl;
+
     Date date1(10, 10, 2002);
-    Date date2(11, 10, 2002);
+    Date date2(11, 10, 1999);
     Date date3(13, 10, 2002);
     Date currentDate;
     cout << "date1: " << date1 << endl;
