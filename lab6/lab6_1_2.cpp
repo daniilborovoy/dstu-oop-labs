@@ -67,7 +67,7 @@ class Beefalo : public Cow, public Buffalo {
 public:
     Beefalo() {}
 
-    Beefalo(int weight, int price, const string& color): Buffalo(weight, price, color), Cow(weight, price, color) {}
+    Beefalo(int weight, int price, const string& color): DomesticAnimal(weight, price, color) {}
 
     void print() {
         cout << typeid(*this).name()
