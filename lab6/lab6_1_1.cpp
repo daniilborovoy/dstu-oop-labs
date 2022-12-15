@@ -52,7 +52,7 @@ public:
     }
 };
 
-class Derived : public Base1, public Base2 {
+class Derived : public Base2, public Base1 {
     char ch;
 public:
     Derived() {
@@ -60,7 +60,7 @@ public:
         ch = 'V';
     }
 
-    Derived(char ch, char *name, int i) : Base2(name), Base1(i) {
+    Derived(char ch, char *name, int i) : Base1(i), Base2(name) {
         cout << "Конструктор Derived с параметром" << endl;
         this->ch = ch;
     }
