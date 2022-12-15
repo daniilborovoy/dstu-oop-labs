@@ -3,7 +3,7 @@
 
 using namespace std;
 
-char s[255] = "abcd\n32131";
+char s[255] = "abcd\n";
 
 ostream &endp(ostream &stream) {
     char ss[255];
@@ -51,12 +51,12 @@ ostream &endp(ostream &stream, int n) {
     return stream;
 }
 
-ostream &fendp(ostream &stream, int n, string s) {
+ostream &fendp(ostream &stream, int n, string str) {
     char ss[255];
     static int k = 0;
     int i, j, c = n;
-    for (i = 0, j = 0; s[j] != '\0'; i++, j++) {
-        ss[i] = s[j];
+    for (i = 0, j = 0; str[j] != '\0'; i++, j++) {
+        ss[i] = str[j];
         if (ss[i] == '\n') {
             k++;
             if (k == c) {
@@ -157,14 +157,43 @@ int main() {
 //    cout << left << cout.flags() << endl;
 //    cout << right << cout.flags()<< endl;
     //Задание 4
-//    cout << s << endp << endl;
-    const string s2 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-//    cout << endp(2) << s2 << endl;
-//    cout << endp(cout, 2) << s2 << endl;
-//    cout << fendp(2, "\n-----------------\n") << s2 << endl;
+    for (int i = 0; i < 7; i++)
+        cout << endp << s;
+    for (int i = 0; i < 7; i++)
+        endp(cout, 5) << s << endl;
+    for (int i = 0; i < 7; i++)
+        fendp(cout, 5, "\n-------------\n") << s << endl;
     //Задание 5
-    const int a = 1;
-    cout << s << endl;
+    cout << "Задание 5." << endl;
+    const int maxchar = 10;
+    string str;
+    cout << "Введите строку:" << endl;
+    getline(cin, str);
+    if (str.size() > maxchar) {
+        cout << "The input is too Short." << endl;
+    }
+    cout << str << endl;
+    cin.clear();
+    fflush(stdin);
+    string peek;
+    cout << "Введите строку:" << endl;
+    // функция peek для входных потоков извлекает cимвол из потока
+    if (cin >> peek && cin.peek() == '\n' || cin.peek() == '\t') {
+        cout << "Проверка peek (ввод $):" << endl;
+    }
+    // putback - оставляет заданный символ в потоке
+    char ch;
+    while (cin.get(ch) && ch != '$') {
+        if (ch == '$') {
+            cin.putback(ch);
+        }
+    }
+    // ignore, удаляет \n
+    int number;
+    cout << "Введите число: ";
+    cin >> number;
+    cin.ignore();
+    cout << "Вы ввели: " << number << "\n";
     return 0;
 }
 
